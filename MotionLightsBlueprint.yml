@@ -17,7 +17,7 @@ blueprint:
           unit_of_measurement: minutes
       name: Delay
       required: true
-    lightLevel:
+    light_level:
       name: Light Level Sensor
       required: true
       selector:
@@ -25,7 +25,7 @@ blueprint:
           filter:
             - device_class: illuminance
               domain: sensor
-    lightLevelToTurnOn:
+    light_level_to_turn_on:
       name: Light Level to turn on
       selector:
         number:
@@ -38,8 +38,8 @@ blueprint:
     value_template: "{{ (expand(area_entities(room.area_id))|selectattr('attributes.device_class','eq','occupancy') | selectattr('state', 'eq', 'on') | list | count) > 0 }}"
   conditions:
     - condition: numeric_state
-      entity_id: "{{lightLevel}}"
-      below: 40
+      entity_id: "{{light_level}}"
+      below: "{{light_level_to_turn_on}}"
   actions:
     - alias: Turn on light
       action: light.turn_on
