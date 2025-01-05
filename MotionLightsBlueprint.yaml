@@ -2,7 +2,7 @@ blueprint:
   name: Control light by motion
   description: Controls the light with motion sensors and the available day light
   domain: automation
-  source_url: https://github.com/paule96/HomeAssistantConfiguration/blob/main/MotionLightsBlueprint.yaml
+  source_url: https://github.com/paule96/HomeAssistantConfiguration/blob/main/MotionLightsBlueprint.yaaml
   author: paule96
   input:
     room:
