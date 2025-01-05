@@ -8,7 +8,6 @@ blueprint:
       selector:
         area: {}
       name: Room
-      required: true
     delay:
       selector:
         number:
@@ -16,10 +15,8 @@ blueprint:
           max: 100
           unit_of_measurement: minutes
       name: Delay
-      required: true
     light_level:
       name: Light Level Sensor
-      required: true
       selector:
         entity:
           filter:
