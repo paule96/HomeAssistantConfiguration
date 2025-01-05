@@ -9,6 +9,7 @@ blueprint:
       selector:
         area:
       name: Room
+      description: The room that should react on motion
     delay:
       selector:
         number:
@@ -16,14 +17,19 @@ blueprint:
           max: 100
           unit_of_measurement: minutes
       name: Delay
+      description: Defines how long the delay will be before the lights turn off.
     light_level:
       name: Light Level Sensor
+      description: A sensor that provide brithness data in lux (lx)
+      default: sensor.light_level
       selector:
         entity:
           filter:
             - domain: sensor
     light_level_to_turn_on:
       name: Light Level to turn on
+      description: Defines a brithness level in relation to the Light level sensor. If the brithness is darker then defined here, the motion will result in a brith light.
+      default: 42 # is not only the answer to everything, but it's also quite dark. Usually brith enough that normal room light will not trigger it
       selector:
         number:
           min: 1
