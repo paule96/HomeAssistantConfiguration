@@ -41,11 +41,11 @@ actions:
   - variables:
       var_room: !input room
       var_delay: !input delay
-  - alias: Turn on light
-    action: light.turn_on
-    target: "bathroom"
-  # - wait_template: "{{ (expand(area_entities(var_room))|selectattr('attributes.device_class','eq','occupancy')| selectattr('state', 'eq', 'on') | list | count) == 0 }}"
-  #   continue_on_timeout: true
+  # - alias: Turn on light
+  #   action: light.turn_on
+  #   target: "bathroom"
+  - wait_template: "{{ (expand(area_entities(var_room))|selectattr('attributes.device_class','eq','occupancy')| selectattr('state', 'eq', 'on') | list | count) == 0 }}"
+    continue_on_timeout: true
   - delay: "{{ var_delay }}"
   # - alias: Turn off light
   #   action: light.turn_off
