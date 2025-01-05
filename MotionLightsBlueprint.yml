@@ -1,0 +1,55 @@
+blueprint:
+  name: Control light by motion
+  description: Controls the light with motion sensors and the available day light
+  domain: automation
+  author: paule96
+  input:
+    room:
+      selector:
+        area: {}
+      name: Room
+      required: true
+    delay:
+      selector:
+        number:
+          min: 1
+          max: 100
+          unit_of_measurement: minutes
+      name: Delay
+      required: true
+    lightLevel:
+      name: Light Level Sensor
+      required: true
+      selector:
+        entity:
+          filter:
+            - device_class: illuminance
+              domain: sensor
+    lightLevelToTurnOn:
+      name: Light Level to turn on
+      selector:
+        number:
+          min: 1
+          max: 100
+          unit_of_measurement: lx
+  mode: restart
+  triggers:
+    trigger: template
+    value_template: "{{ (expand(area_entities(room.area_id))|selectattr('attributes.device_class','eq','occupancy') | selectattr('state', 'eq', 'on') | list | count) > 0 }}"
+  conditions:
+    - condition: numeric_state
+      entity_id: "{{lightLevel}}"
+      below: 40
+  actions:
+    - alias: Turn on light
+      action: light.turn_on
+      target: "{{ room }}"
+    - wait_template: >-
+        {{
+        (expand(area_entities(room.area_id))|selectattr('attributes.device_class','eq','occupancy')|
+        selectattr('state', 'eq', 'on') | list | count) == 0 }}
+      continue_on_timeout: true
+    - delay: "{{delay}}"
+    - alias: Turn off light
+      action: light.turn_off
+      target: "{{ room }}"
