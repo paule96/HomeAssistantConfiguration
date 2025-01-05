@@ -54,4 +54,4 @@ actions:
   - alias: Turn off light
     action: light.turn_off
     target:
-      area_id: "{{ var_room }}""
+      area_id: "{{ var_room }}"
