@@ -20,8 +20,7 @@ blueprint:
       selector:
         entity:
           filter:
-            - unit_of_measurement: lx
-              domain: sensor
+            - domain: sensor
     light_level_to_turn_on:
       name: Light Level to turn on
       selector:
