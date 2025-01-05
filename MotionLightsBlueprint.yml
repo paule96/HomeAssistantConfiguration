@@ -32,7 +32,7 @@ blueprint:
 mode: restart
 triggers:
   trigger: template
-  value_template: {{ (expand(area_entities(!input room))|selectattr('attributes.device_class','eq','occupancy') | selectattr('state', 'eq', 'on') | list | count) > 0 }}
+  value_template: (expand(area_entities(!input room))|selectattr('attributes.device_class','eq','occupancy') | selectattr('state', 'eq', 'on') | list | count) > 0
 conditions:
   - condition: numeric_state
     entity_id: !input light_level
