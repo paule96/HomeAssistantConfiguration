@@ -42,8 +42,8 @@ conditions:
     below: !input light_level_to_turn_on
 actions:
   - variables:
-    var_room: !input room
-    var_delay: !input delay
+    - var_room: !input room
+    - var_delay: !input delay
   - alias: Turn on light
     action: light.turn_on
     target: >-
