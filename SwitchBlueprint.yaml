@@ -1,0 +1,93 @@
+blueprint:
+  name: Control light by motion
+  description: Controls the light with motion sensors and the available day light
+  domain: automation
+  source_url: https://github.com/paule96/HomeAssistantConfiguration/blob/main/MotionLightsBlueprint.yaaml
+  author: paule96
+  input:
+    room:
+      selector:
+        area:
+      name: Room
+      description: The room that should react on motion
+    delay:
+      selector:
+        number:
+          min: 1
+          max: 100
+          unit_of_measurement: minutes
+      name: Delay
+      description: Defines how long the delay will be before the lights turn off.
+    light_level:
+      name: Light Level Sensor
+      description: A sensor that provide brithness data in lux (lx)
+      default: sensor.light_level
+      selector:
+        entity:
+          filter:
+            - domain: sensor
+    light_level_to_turn_on:
+      name: Light Level to turn on
+      description: Defines a brithness level in relation to the Light level sensor. If the brithness is darker then defined here, the motion will result in a brith light.
+      default: 42 # is not only the answer to everything, but it's also quite dark. Usually brith enough that normal room light will not trigger it
+      selector:
+        number:
+          min: 1
+          max: 100
+          unit_of_measurement: lx
+mode: restart
+trigger_variables:
+  var_room: !input room
+triggers:
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: on_triple_press
+    id: tripple_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: on_press
+    id: on_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: off_press
+    id: off_press
+conditions:
+  - condition: template
+    value_template: "{{ area_name(trigger.event.data.device_id) == var_room }}"
+    enabled: true
+actions:
+  - variables:
+      area: "{{area_name(trigger.event.data.device_id)}}"
+  - choose:
+      - conditions:
+          - condition: trigger
+            id:
+              - tripple_press
+        sequence:
+          - action: light.turn_off
+            metadata: {}
+            data: {}
+            entity_id: all
+      - conditions:
+          - condition: trigger
+            id:
+              - on_press
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            data: {}
+            target: 
+              area_id: "{{ area }}"
+      - conditions:
+          - condition: trigger
+            id:
+              - off_press
+        sequence:
+          - action: light.turn_off
+            metadata: {}
+            data: {}
+            target: 
+              area_id: "{{ area }}"
