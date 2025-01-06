@@ -31,7 +31,8 @@ triggers:
     id: off_press
 conditions:
   - condition: template
-    value_template: "{{ area_name(trigger.event.data.device_id) == var_room }}"
+    value_template:  >-  
+      {{ area_name(trigger.event.data.device_id) == var_room }}
     enabled: true
 actions:
   - variables:
