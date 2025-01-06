@@ -17,7 +17,7 @@ triggers:
   - trigger: event
     event_type: zha_event
     event_data:
-      command: on_triple_press
+      command: off_triple_press
     id: tripple_press
   - trigger: event
     event_type: zha_event
