@@ -1,6 +1,6 @@
 blueprint:
-  name: Control light by motion
-  description: Controls the light with motion sensors and the available day light
+  name: Switch buttons
+  description: Controls the light with switches. Maybe at some point more then just lights
   domain: automation
   source_url: https://raw.githubusercontent.com/paule96/HomeAssistantConfiguration/refs/heads/main/SwitchBlueprint.yaml
   author: paule96
