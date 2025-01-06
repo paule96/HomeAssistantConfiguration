@@ -35,6 +35,7 @@ blueprint:
           min: 1
           max: 100
           unit_of_measurement: lx
+        entity:
 mode: restart
 trigger_variables:
   var_room: !input room
