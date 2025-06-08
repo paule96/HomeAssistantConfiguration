@@ -10,6 +10,15 @@ blueprint:
         area:
       name: Room
       description: The room that should react on motion
+    brightness_step_pct:
+      default: 15
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: %
+      name: Steps the light will be increased
+      description: Defines a number how much the light will increased or decrease. The number is readed as a percentage.
 mode: restart
 trigger_variables:
   var_room: !input room
@@ -27,6 +36,26 @@ triggers:
   - trigger: event
     event_type: zha_event
     event_data:
+      command: down_short_release
+    id: on_down_short_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: down_press
+    id: on_down_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: up_short_release
+    id: on_up_short_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: up_press
+    id: on_up_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
       command: off_press
     id: off_press
 conditions:
@@ -37,6 +66,7 @@ conditions:
 actions:
   - variables:
       area: "{{area_id(trigger.event.data.device_id)}}"
+      brightness_step_pct: !input brightness_step_pct
   - choose:
       - conditions:
           - condition: trigger
@@ -66,4 +96,29 @@ actions:
             metadata: {}
             data: {}
             target: 
+              area_id: "{{ area }}"
+      - conditions:
+          - condition: trigger
+            id:
+              - on_up_press
+              - on_up_short_press
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            data:
+              brightness_step_pct: {{brightness_step_pct}}
+            target:
+              area_id: "{{ area }}"
+            alias: Increase light
+      - conditions:
+          - condition: trigger
+            id:
+              - on_down_press
+              - on_down_short_press
+        sequence:
+          - action: light.turn_on
+            metadata: {}
+            data:
+              brightness_step_pct: -{{brightness_step_pct}}
+            target:
               area_id: "{{ area }}"
