@@ -37,7 +37,11 @@ triggers:
     event_type: zha_event
     event_data:
       command: down_short_release
-    id: on_down_short_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: down_hold
+    id: on_down_hold
   - trigger: event
     event_type: zha_event
     event_data:
@@ -53,6 +57,11 @@ triggers:
     event_data:
       command: up_press
     id: on_up_press
+  - trigger: event
+    event_type: zha_event
+    event_data:
+      command: up_hold
+    id: on_up_hold
   - trigger: event
     event_type: zha_event
     event_data:
@@ -102,6 +111,7 @@ actions:
             id:
               - on_up_press
               - on_up_short_press
+              - on_up_hold
         sequence:
           - action: light.turn_on
             metadata: {}
@@ -115,6 +125,7 @@ actions:
             id:
               - on_down_press
               - on_down_short_press
+              - on_down_hold
         sequence:
           - action: light.turn_on
             metadata: {}
