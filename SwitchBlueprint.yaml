@@ -66,7 +66,7 @@ conditions:
 actions:
   - variables:
       area: "{{area_id(trigger.event.data.device_id)}}"
-      brightness_step_pct: !input brightness_step_pct_input
+      brightnessStepPct: !input brightness_step_pct_input
   - choose:
       - conditions:
           - condition: trigger
@@ -106,7 +106,7 @@ actions:
           - action: light.turn_on
             metadata: {}
             data:
-              brightness_step_pct: {{brightness_step_pct}}
+              brightness_step_pct: {{brightnessStepPct}}
             target:
               area_id: "{{ area }}"
             alias: Increase light
@@ -119,6 +119,6 @@ actions:
           - action: light.turn_on
             metadata: {}
             data:
-              brightness_step_pct: -{{brightness_step_pct}}
+              brightness_step_pct: -{{brightnessStepPct}}
             target:
               area_id: "{{ area }}"
