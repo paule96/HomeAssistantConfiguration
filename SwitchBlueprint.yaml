@@ -16,7 +16,7 @@ blueprint:
         number:
           min: 0
           max: 100
-          unit_of_measurement: %
+          unit_of_measurement: '%'
       name: Steps the light will be increased
       description: Defines a number how much the light will increased or decrease. The number is readed as a percentage.
 mode: restart
