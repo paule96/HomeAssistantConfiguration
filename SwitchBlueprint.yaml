@@ -106,7 +106,7 @@ actions:
           - action: light.turn_on
             metadata: {}
             data:
-              brightness_step_pct: {{brightnessStepPct}}
+              brightness_step_pct: "{{brightnessStepPct}}"
             target:
               area_id: "{{ area }}"
             alias: Increase light
@@ -119,6 +119,6 @@ actions:
           - action: light.turn_on
             metadata: {}
             data:
-              brightness_step_pct: -{{brightnessStepPct}}
+              brightness_step_pct: -"{{brightnessStepPct}}"
             target:
               area_id: "{{ area }}"
